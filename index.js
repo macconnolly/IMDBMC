@@ -24,20 +24,20 @@ const store = configureStore();
 ReactDOM.render(
     <Provider store={store}>
 
-                <ConnectedRouter history={history}> { /* place ConnectedRouter under Provider */ }
-                    <BrowserRouter>
-                        <MovieHeader />
-                        <Switch>
-                            <Route path='/' exact component={LoginPage} />
-                            <Route path='/login' component={LoginPage} />
-                            <Route path='/register' component={RegisterPage} />
-                            <PrivateRoute path="/movies" component={MovieOverview} />
-                            <PrivateRoute path='/movie/create' exact component={CreateMovieContainer}/>
-                            <PrivateRoute path='/new/movie' exact component={MovieForm}/>
-                        </Switch>
-                    </BrowserRouter>
+        <ConnectedRouter history={history}> { /* place ConnectedRouter under Provider */ }
+            <BrowserRouter>
+                <MovieHeader />
+                <Switch>
+                    <Route path='/' exact component={LoginPage} />
+                    <Route path='/login' component={LoginPage} />
+                    <Route path='/register' component={RegisterPage} />
+                    <PrivateRoute path="/movies" component={MovieOverview} />
+                    <PrivateRoute path='/movie/create' exact component={CreateMovieContainer}/>
+                    <PrivateRoute path='/new/movie' exact component={MovieForm}/>
+                </Switch>
+            </BrowserRouter>
         </ConnectedRouter>
 
     </Provider>,
     document.getElementById('root')
-)
+);
