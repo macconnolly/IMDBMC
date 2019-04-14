@@ -35,6 +35,10 @@ class RegisterPage extends Component {
         <Row>
         <Col sm="12" md={{ size: 6, offset: 3 }}>
         <Jumbotron className="Register">
+          <h1 className="display-3">Let's get registered!</h1>
+          <p className="lead">This is a simple form used to sign up to add movies to our database.</p>
+          <hr className="my-2" />
+          <p>This form is inconsistent with convention as it modifies state directly. Hopefully in the next version I can fix that, but for now, have fun!</p>
           <h2>Sign Up</h2>
           <Form className="form" onSubmit={this.onHandleRegistration}>
             <Col>

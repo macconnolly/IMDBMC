@@ -30,32 +30,32 @@ class MovieForm extends Component {
 
     event.preventDefault();
 
-    // var actors=[
-    //   {actorName:this.state.actor1,characterName:'character one'},
-    //   {actorName:this.state.actor2,characterName:'character two'},
-    //   {actorName:this.state.actor3,characterName:'character three'}];
-    //
-    // var data = {
-    //   title: this.state.title,
-    //   actors: actors,
-    //   genre:this.state.genre,
-    //   imageUrl: 'http://www.imdb.com/title/tt3896198/mediaviewer/rm911094272?ref_=tt_ov_i',
-    //   releaseDate: this.state.releaseDate
-    // };
-
     var actors=[
-    {actorName:'jack',characterName:'character one'},
-    {actorName:'jill',characterName:'character two'},
-    {actorName:'jim',characterName:'character three'}];
+      {actorName:this.state.actor1,characterName:'character one'},
+      {actorName:this.state.actor2,characterName:'character two'},
+      {actorName:this.state.actor3,characterName:'character three'}];
 
     var data = {
-      title: 'test title movie',
+      title: this.state.title,
       actors: actors,
-      genre:'Horror',
+      genre:this.state.genre,
       imageUrl: 'http://www.imdb.com/title/tt3896198/mediaviewer/rm911094272?ref_=tt_ov_i',
-      releaseDate: '2019',
-
+      releaseDate: this.state.releaseDate
     };
+
+    // var actors=[
+    // {actorName:'jack',characterName:'character one'},
+    // {actorName:'jill',characterName:'character two'},
+    // {actorName:'jim',characterName:'character three'}];
+    //
+    // var data = {
+    //   title: 'test title movie',
+    //   actors: actors,
+    //   genre:'Horror',
+    //   imageUrl: 'http://www.imdb.com/title/tt3896198/mediaviewer/rm911094272?ref_=tt_ov_i',
+    //   releaseDate: '2019',
+    //
+    // };
     console.log(data);
     let token = checkCookie();
     this.props.dispatch(createNewMovieAction(data, token));

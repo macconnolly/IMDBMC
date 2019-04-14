@@ -10,6 +10,11 @@ class CreateMovieContainer extends Component {
     render() {
         return (
             <Jumbotron className="jumbotron-header mb-3 jumbotron">
+                <h1 className="display-3">Let's Add a New Movie!</h1>
+                <p className="lead">This is a simple form used to add movies to our database.</p>
+                <hr className="my-2" />
+                <p>This form is inconsistent with convention as it modifies state directly. Hopefully in the next version I can fix that, but for now, have fun!</p>
+                <h2>Sign Up</h2>
                 <Container>
                     <Row>
                         <Col>
