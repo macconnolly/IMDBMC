@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
+import Cookies from 'js-cookie';
 
 import { loginUserAction } from '../actions/authenticationActions';
 import { setCookie, checkCookie } from '../utils/cookies';
@@ -10,7 +11,8 @@ class LoginPage extends Component {
     super(props);
   }
   componentWillMount() {
-    if(checkCookie() != null){
+
+    if(checkCookie() != undefined){
       this.props.history.push('/movies');
     }
 
@@ -53,7 +55,8 @@ class LoginPage extends Component {
       message = this.props.response.login.response.message;
       
       if (isSuccess) {
-        setCookie('token', this.props.response.login.response.token, 1);
+        //setCookie('token', this.props.response.login.response.token, 1);
+        Cookies.set('token', this.props.response.login.response.token, {expires: 1});
       }
     }
 

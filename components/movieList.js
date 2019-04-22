@@ -11,7 +11,8 @@ import Container from "react-bootstrap/Container";
 
 class MovieList extends Component {
     constructor(props) {
-        console.log('CONSTRUCTOR!')
+        console.log('Cookies:');
+        console.log('CONSTRUCTOR!1234');
         super(props);
         if (this.props.onTitleChange)
             this.props.onTitleChange(null);
@@ -123,6 +124,8 @@ class MovieList extends Component {
     // };
 
     componentDidMount() {
+
+        console.log('not the movie list');
         console.log('movielist')
         console.log(JSON.stringify(this.props.movieList))
 

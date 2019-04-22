@@ -6,12 +6,15 @@ import {checkCookie} from '../utils/cookies';
 import { replace, push } from 'connected-react-router'
 import Card from "react-bootstrap/Card";
 import Container from "react-bootstrap/Container";
+import Cookies from 'js-cookie';
 
 
 
 class MovieList extends Component {
     constructor(props) {
-        console.log('CONSTRUCTOR!')
+        console.log('CONSTRUCTOR1234 !')
+        console.log('Cookie: ');
+        console.log(Cookies.get());
         super(props);
         if (this.props.onTitleChange)
             this.props.onTitleChange(null);
