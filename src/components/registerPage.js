@@ -45,7 +45,7 @@ class RegisterPage extends Component {
                     type="text"
                     name="name"
                     id="name"
-                    placeholder="John Doe"
+                    placeholder="johndoe"
                 />
               </FormGroup>
             </Col>
@@ -72,7 +72,7 @@ class RegisterPage extends Component {
               </FormGroup>
             </Col>
             <Col>
-            <Button>Register</Button>
+              <Button color="primary">Register</Button>
             </Col>
           </Form>
           <br/>

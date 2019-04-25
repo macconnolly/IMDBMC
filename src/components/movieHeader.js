@@ -42,7 +42,7 @@ class MoviePage extends Component {
         return (
             <div>
                 <Navbar color="light" light expand="md">
-                    <NavbarBrand href="/">Mac's Movie Site!</NavbarBrand>
+                    <NavbarBrand href="/">MC IMDB</NavbarBrand>
                     <NavbarToggler onClick={this.toggle} />
                     <Collapse isOpen={this.state.isOpen} navbar>
                         <Nav className="ml-auto" navbar>

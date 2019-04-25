@@ -70,8 +70,8 @@ class LoginPage extends Component {
 
     <Row>
       <Col sm="12" md={{ size: 6, offset: 3 }}>
-        <Jumbotron className="Register">
-          <h2>Sign Up</h2>
+        <Jumbotron className="login">
+          <h2>Login to Existing Account</h2>
           <Form className="loginForm" onSubmit={this.onHandleLogin}>
             <Col>
               <FormGroup>
@@ -80,7 +80,7 @@ class LoginPage extends Component {
                     type="text"
                     name="username"
                     id="username"
-                    placeholder="Your Username (not email)"
+                    placeholder="johndoe"
                 />
               </FormGroup>
             </Col>
@@ -94,7 +94,7 @@ class LoginPage extends Component {
                     placeholder="********"
                 />
               </FormGroup>
-              <Button>Login</Button>
+              <Button color="primary">Login</Button>
             </Col>
 
           </Form>
