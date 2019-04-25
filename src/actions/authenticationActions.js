@@ -13,3 +13,9 @@ export const loginUserAction = (user) => {
     user
   }
 };
+
+export const logoutUserAction = () => {
+  return {
+    type: types.LOGOUT_USER
+  }
+};

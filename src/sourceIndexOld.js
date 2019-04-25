@@ -9,7 +9,7 @@ import { Router, Route, HashRouter, ConnectedRouter} from 'react-router-dom';
 import { syncHistoryWithStore, routerMiddleware } from 'react-router-redux';
 import createSagaMiddleware from 'redux-saga';
 import { composeWithDevTools } from 'redux-devtools-extension';
-import App from './container/App';
+import App from './App';
 import rootReducer from './reducers';
 import rootSaga from './sagas';
 import './index.css';

@@ -9,7 +9,10 @@ import {
     FETCH_MOVIE_DETAILS,
     FETCH_MOVIE_DETAILS_SUCCESS,
     FETCH_MOVIE_DETAILS_ERROR,
-    CREATE_MOVIE
+    CREATE_MOVIE,
+    CREATE_REVIEW,
+    CREATE_REVIEW_SUCCESS,
+    FINISH_CREATE_REDIRECT
 } from "./index";
 
 export function createNewMovieAction(data, token){
@@ -74,6 +77,26 @@ export function getMovieDetailsError(data){
     return {
         type: FETCH_MOVIE_DETAILS_ERROR, data
     }
+}
+
+export function finishCreateMovie(){
+    return {
+        type: FINISH_CREATE_REDIRECT
+    }
+}
+
+export function createReview(data, token) {
+    return{
+        type: CREATE_REVIEW, data, token
+    }
+
+}
+
+export function createReviewSuccess() {
+    return{
+        type: CREATE_REVIEW_SUCCESS
+    }
+
 }
 
 

@@ -30,7 +30,8 @@ class RegisterPage extends Component {
     
     return (
       <div>
-        <h3>RegisterPage</h3>
+        <br/>
+        <br/>
         {!isSuccess ? <div>{message}</div> : <Redirect to='login' />}
         <Row>
         <Col sm="12" md={{ size: 6, offset: 3 }}>

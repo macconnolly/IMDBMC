@@ -1,11 +1,10 @@
 import React from 'react';
 import { Redirect, Route } from 'react-router-dom';
 import Cookies from 'js-cookie';
-import { checkCookie } from '../utils/cookies';
 
 const PrivateRoute = ({ component: Component, ...rest }) => (
     <Route { ...rest } render={props => (
-        Cookies.get() !== undefined ? (
+        Cookies.get('token') !== undefined ? (
             <Component { ...props } />
         ) : (
             <Redirect to={{

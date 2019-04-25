@@ -1,11 +1,12 @@
 import {takeLatest, put, take, takeEvery} from 'redux-saga/effects';
 import { registerSaga, loginSaga } from './authenticationSaga';
-import {getAllMoviesSaga, getMovieDetails, createNewMovieSaga, updateSelectedMovie} from "./movieSaga";
+import {getAllMoviesSaga, getMovieDetails, createNewMovieSaga, updateSelectedMovie, createNewReviewSaga} from "./movieSaga";
 
 import {FETCH_MOVIES, LOGIN_USER, REGISTER_USER,
   UPDATE_SELECTED_MOVIE,
   FETCH_MOVIE_DETAILS,
-  CREATE_MOVIE
+  CREATE_MOVIE,
+  CREATE_REVIEW
 
 } from '../actions';
 
@@ -18,6 +19,7 @@ export function* watchMovies() {
 
   yield takeEvery(FETCH_MOVIES, getAllMoviesSaga);
   yield takeLatest(CREATE_MOVIE, createNewMovieSaga);
+  yield takeEvery(CREATE_REVIEW, createNewReviewSaga);
   //yield takeLatest(UPDATE_SELECTED_MOVIE, updateSelectedMovie);
   // yield take(UPDATE_SELECTED_MOVIE)
   //yield put(CREATE_MOVIE, createNewMovie);

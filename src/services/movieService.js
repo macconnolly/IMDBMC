@@ -1,3 +1,4 @@
+import { push, replace } from 'connected-react-router'
 export const getAllMoviesService = (token) => {
     const MOVIE_API_ENDPOINT = 'https://csc3916-hw4.herokuapp.com/movies?reviews=true';
     const parameters = {
@@ -26,7 +27,7 @@ export const getMovieDetailsService = (response, ...params) => {
     const parameters = {
         method: 'GET',
         headers: {
-            'Authorization':'JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVhYjdmODhkMWUyYTIyMDAwNDE5MzE2MSIsInVzZXJuYW1lIjoiZ2Ftb3JhNTUiLCJpYXQiOjE1NTQ3NzE3NDR9.3p8CwLFxhdq0_3iQ9JskekJfyPk2eVQRNTmh3u2BjgE',
+            'Authorization': params.token,
             'Content-Type': 'application/json'
         }
     };
@@ -65,7 +66,39 @@ export const createMovieService = (action) => {
         })
         .then(json => {
             console.log('Service json response' + JSON.stringify(json));
+
             return json;
         })
+
+        ;
+};
+
+
+export const createReviewService = (action) => {
+    console.log('review service action data:');
+    console.log(JSON.stringify(action.data));
+    console.log(JSON.stringify(action.token));
+
+    const REVIEW_API_ENDPOINT = 'https://csc3916-hw4.herokuapp.com/reviews';
+    const parameters = {
+        method: 'PUT',
+        headers: {
+            'Authorization': action.token.toString(),
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(action.data)
+    };
+
+    return fetch(REVIEW_API_ENDPOINT, parameters)
+        .then(response => {
+            console.log('review json first response: ' + JSON.stringify(response));
+            return response.json();
+        })
+        .then(json => {
+            console.log('review json response' + JSON.stringify(json));
+
+            return json;
+        })
+
         ;
 };

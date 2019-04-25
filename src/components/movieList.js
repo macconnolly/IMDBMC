@@ -1,8 +1,20 @@
 import React, {Component} from 'react';
-import {CardColumns, Col, Image, ListGroup, Nav, Row, Tab} from 'react-bootstrap';
-import {fetchAllMovies, updateSelectedMovie} from '../actions/movieActions';
+import {
+    CardColumns,
+    Col,
+    Image,
+    ListGroup,
+    Nav,
+    Row,
+    Tab,
+    Modal,
+    Button,
+    Form,
+    DropdownButton,
+    Dropdown
+} from 'react-bootstrap';
+import {fetchAllMovies, updateSelectedMovie, createReview} from '../actions/movieActions';
 import {connect} from "react-redux";
-import {checkCookie} from '../utils/cookies';
 import { replace, push } from 'connected-react-router'
 import Card from "react-bootstrap/Card";
 import Container from "react-bootstrap/Container";
@@ -12,19 +24,61 @@ import Cookies from 'js-cookie';
 
 class MovieList extends Component {
     constructor(props) {
-        console.log('CONSTRUCTOR1234 !')
-        console.log('Cookie: ');
-        console.log(Cookies.get());
+
         super(props);
         if (this.props.onTitleChange)
             this.props.onTitleChange(null);
+        this.handleShow = this.handleShow.bind(this);
+        this.handleClose = this.handleClose.bind(this);
 
+        this.state = {
+            show: false,
+            reviewRating: 'Select rating',
+            reviewBody: ''
+        };
     }
 
     // handleSelect(key) {
     //     console.log('selected' + key);
     //     this.setState({ key: key });
     // }
+
+    handleOnSelectRating = (eventKey, event) => {
+        this.setState({
+            reviewRating: eventKey
+        });
+        console.log('rating: ' + this.state.reviewRating);
+    };
+
+    handleOnChangeReviewBody=(event)=>
+    {
+        this.setState({reviewBody: event.target.value});
+        console.log('review: ' + this.state.reviewBody);
+    };
+
+    handleClose() {
+
+        let token = Cookies.get('token');
+
+
+        var data = {
+            reviewBody: this.state.reviewBody,
+            reviewScore: this.state.reviewRating,
+            movieID: this.props.selectedOption
+        };
+        this.props.dispatch(createReview(data, token));
+        this.setState({
+            show: false,
+            reviewRating: 'Select rating',
+            reviewBody: ''});
+
+        this.props.dispatch(fetchAllMovies(Cookies.get('token')));
+
+    }
+
+    handleShow() {
+        this.setState({ show: true });
+    }
 
     componentWillMount() {
 
@@ -35,7 +89,8 @@ class MovieList extends Component {
         if (this.props.hash !== "" && currentMovieID === ""){
             this.props.dispatch(updateSelectedMovie(hash));
         }
-        this.props.dispatch(fetchAllMovies(checkCookie()));
+        this.props.dispatch(fetchAllMovies(Cookies.get('token')));
+
 
 
 
@@ -126,8 +181,7 @@ class MovieList extends Component {
     // };
 
     componentDidMount() {
-        console.log('movielist')
-        console.log(JSON.stringify(this.props.movieList))
+
 
         // if(this.props.selectedOption === ""){
         //     this.props.dispatch(updateSelectedMovie(this.props.movieList[0]._id));
@@ -228,14 +282,22 @@ class MovieList extends Component {
                                                             <p key={actor._id}>Actor Name: {actor.actorName}, Character Name: {actor.characterName}</p>
                                                         ))
                                                     }
+                                                        <>
+                                                            <Button variant="primary" onClick={this.handleShow}>
+                                                                    Write a review
+                                                            </Button>
+
+
+                                                        </>
                                                     </Col>
                                                 </Row>
                                             </Col>
                                         </Row>
-
                                         <br/>
                                         <br/>
+                                        <h3>Reviews</h3>
                                         <CardColumns>
+
                                         {
                                             movie.reviews.map((review, index) => (
 
@@ -255,15 +317,9 @@ class MovieList extends Component {
                                                                 <small className="text-muted">
                                                                     -{review.reviewerName}
                                                                 </small>
-
-
-
                                                             </footer>
                                                         </blockquote>
                                                     </Card>
-
-
-
                                             ))
                                         }
                                         </CardColumns>
@@ -275,7 +331,44 @@ class MovieList extends Component {
                         </Col>
                     </Row>
                 </Tab.Container>
+                <Modal show={this.state.show} onHide={this.handleClose}>
+                    <Modal.Header closeButton>
+                        <Modal.Title>Create Review</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <Form>
 
+                            <Form.Group as={Col} controlId="reviewForm.reviewBody">
+                                <Form.Label>Movie Review</Form.Label>
+                                <Form.Control onChange={ (e) => this.handleOnChangeReviewBody(e)} type="text" id="reviewBody" as="textarea" rows="3" />
+                            </Form.Group>
+                            <Form.Group as={Col} controlId="reviewForm.rating">
+                                <Form.Label>Rating</Form.Label>
+                                <DropdownButton
+
+                                    title={this.state.reviewRating }
+                                    id="dropdown-size-medium"
+                                    onSelect={ (eventKey, event) => this.handleOnSelectRating(eventKey, event) }
+                                >
+                                    <Dropdown.Item eventKey="1">1</Dropdown.Item>
+                                    <Dropdown.Item eventKey="2">2</Dropdown.Item>
+                                    <Dropdown.Item eventKey="3">3</Dropdown.Item>
+                                    <Dropdown.Item eventKey="4">4</Dropdown.Item>
+                                    <Dropdown.Item eventKey="5">5</Dropdown.Item>
+                                </DropdownButton>
+                            </Form.Group>
+
+                        </Form>
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <Button variant="secondary" onClick={this.handleClose}>
+                            Close
+                        </Button>
+                        <Button variant="primary" onClick={this.handleClose}>
+                            Submit Review
+                        </Button>
+                    </Modal.Footer>
+                </Modal>
             </Container>
 
         );
@@ -289,7 +382,7 @@ const mapStateToProps = state => ({
     hash: state.router.location.hash,
     movieList: state.movie.titles,
     selectedOption: state.movie.selectedOption,
-    inFlight: state.movie.inFlight
+    inFlight: state.movie.inFlight,
 });
 
 export default connect(mapStateToProps)(MovieList)

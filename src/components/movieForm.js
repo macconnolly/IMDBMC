@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
 import {ButtonToolbar,DropdownButton, Dropdown, Form, Col, Button} from 'react-bootstrap';
-import axios from 'axios';
+import {withRouter} from 'react-router'
+
 import {connect} from "react-redux";
-import {createNewMovieAction} from "../actions/movieActions";
-import {checkCookie} from '../utils/cookies';
+import { push, replace } from 'connected-react-router'
+import {createNewMovieAction, finishCreateMovie} from "../actions/movieActions";
+
+import Cookies from 'js-cookie';
 
 class MovieForm extends Component {
 
@@ -13,6 +16,9 @@ class MovieForm extends Component {
       this.props.onTitleChange(null);
 
     this.state = {genre:'Select Genre',rating:'Select Rating',title: '',actor1:'',actor2:'',actor3:'',releaseDate:''};
+
+  }
+  componentDidUpdate(){
 
   }
   handleOnSelectGenre = (eventKey,event) => {
@@ -30,38 +36,41 @@ class MovieForm extends Component {
 
     event.preventDefault();
 
-    // var actors=[
-    //   {actorName:this.state.actor1,characterName:'character one'},
-    //   {actorName:this.state.actor2,characterName:'character two'},
-    //   {actorName:this.state.actor3,characterName:'character three'}];
-    //
-    // var data = {
-    //   title: this.state.title,
-    //   actors: actors,
-    //   genre:this.state.genre,
-    //   imageUrl: 'http://www.imdb.com/title/tt3896198/mediaviewer/rm911094272?ref_=tt_ov_i',
-    //   releaseDate: this.state.releaseDate
-    // };
-
     var actors=[
-    {actorName:'jack',characterName:'character one'},
-    {actorName:'jill',characterName:'character two'},
-    {actorName:'jim',characterName:'character three'}];
+      {actorName:this.state.actor1,characterName:'character one'},
+      {actorName:this.state.actor2,characterName:'character two'},
+      {actorName:this.state.actor3,characterName:'character three'}];
 
     var data = {
-      title: 'test title movie',
+      title: this.state.title,
       actors: actors,
-      genre:'Horror',
-      imageUrl: 'http://www.imdb.com/title/tt3896198/mediaviewer/rm911094272?ref_=tt_ov_i',
-      releaseDate: '2019',
-
+      genre:this.state.genre,
+      imageUrl: this.state.imageUrl,
+      releaseDate: this.state.releaseDate
     };
+
+    // var actors=[
+    // {actorName:'jack',characterName:'character one'},
+    // {actorName:'jill',characterName:'character two'},
+    // {actorName:'jim',characterName:'character three'}];
+    //
+    // var data = {
+    //   title: 'test title movie',
+    //   actors: actors,
+    //   genre:'Horror',
+    //   imageUrl: 'http://www.imdb.com/title/tt3896198/mediaviewer/rm911094272?ref_=tt_ov_i',
+    //   releaseDate: '2019',
+    //
+    // };
     console.log(data);
-    let token = checkCookie();
+    let token = Cookies.get('token');
     this.props.dispatch(createNewMovieAction(data, token));
+    this.props.dispatch(createNewMovieAction(data, token));
+
 
     console.log('sent create new movie action')
   }
+
   handleOnChangeTitle=(event)=>
   {
     this.setState({title: event.target.value});
@@ -84,9 +93,16 @@ class MovieForm extends Component {
   }
   handleOnChangeImageUrl=(event)=>
   {
-    this.setState({actor3: event.target.value});
+    this.setState({imageUrl: event.target.value});
   }
   render() {
+    let redirect = this.props.createMovie.movie.createRedirect;
+    if(redirect){
+      this.props.history.push('/movies');
+      this.props.dispatch(push('/movies'));
+      this.props.dispatch(finishCreateMovie());
+
+    }
     return (
         <div>
 
@@ -168,7 +184,7 @@ class MovieForm extends Component {
   }
 }
 
-const mapStateToProps = (response) => ({response});
+const mapStateToProps = (createMovie) => ({createMovie});
 
 export default connect(mapStateToProps)(MovieForm);
 

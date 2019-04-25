@@ -13,11 +13,13 @@ class CreateMovieContainer extends Component {
                 <Container>
                     <Row>
                         <Col>
-                            <h1 className="display-3 text-center">Hello, world!</h1>
-                            <p className="lead text-center">This is a simple hero unit, a simple Jumbotron-style component for calling extra attention to featured content or information.</p>
+                            <h1 className="display-3 text-center">Create a movie!</h1>
+                            <p className="lead text-center">Fill out this form to enter a new movie into our movies DB.</p>
                             <hr className="my-2" />
-                            <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
-                            <MovieForm/>
+
+                            <br/>
+                            <br/>
+                            <MovieForm props history={this.props.history} />
                         </Col>
                     </Row>
                 </Container>

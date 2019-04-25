@@ -27,7 +27,7 @@ ReactDOM.render(
         <ConnectedRouter history={history}> { /* place ConnectedRouter under Provider */ }
             <BrowserRouter>
                 <MovieHeader />
-                <Switch>
+                <Switch >
                     <Route path='/' exact component={LoginPage} />
                     <Route path='/login' component={LoginPage} />
                     <Route path='/register' component={RegisterPage} />
@@ -40,4 +40,5 @@ ReactDOM.render(
 
     </Provider>,
     document.getElementById('root')
+
 );
