@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { Button, Form, FormGroup, Label, Input, FormText, Jumbotron, Col, Row} from 'reactstrap';
+import {Button, Form, FormGroup, Label, Input, FormText, Jumbotron, Col, Row, Alert} from 'reactstrap';
 import { registerUserAction } from '../actions/authenticationActions';
 
 class RegisterPage extends Component {
@@ -24,7 +24,7 @@ class RegisterPage extends Component {
     let message, isSuccess;
 
     if (this.props.response.register.hasOwnProperty('response')) {
-      isSuccess = this.props.response.register.response.success;
+     this.props.response.register.response.success !== undefined ? isSuccess = this.props.response.register.response.success : isSuccess = false;
       message = this.props.response.register.response.message;
     }
     
@@ -33,6 +33,17 @@ class RegisterPage extends Component {
         <br/>
         <br/>
         {!isSuccess ? <div>{message}</div> : <Redirect to='login' />}
+
+        {
+          isSuccess
+              ?
+                <Alert color="primary">
+                  {message}
+                </Alert>
+              :
+                <Redirect to='login' />
+        }
+
         <Row>
         <Col sm="12" md={{ size: 6, offset: 3 }}>
         <Jumbotron className="Register">

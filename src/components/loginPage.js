@@ -1,14 +1,18 @@
 import React, { Component } from 'react';
-import { Link, Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Cookies from 'js-cookie';
-import { Container, Button, Form, FormGroup, Label, Input, FormText, Jumbotron, Col, Row} from 'reactstrap';
+import { Alert, Button, Form, FormGroup, Label, Input, Jumbotron, Col, Row} from 'reactstrap';
 import { loginUserAction } from '../actions/authenticationActions';
 
 
 class LoginPage extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      loading: false,
+
+    };
   }
   componentWillMount() {
     if(Cookies.get('token') !== undefined){
@@ -62,6 +66,13 @@ class LoginPage extends Component {
       }
     }
 
+
+
+    if (this.props.response.register.hasOwnProperty('response')) {
+      isSuccess = this.props.response.register.response.success;
+      message = this.props.response.register.response.message;
+    }
+
     return (
 
         <div>
@@ -70,6 +81,22 @@ class LoginPage extends Component {
 
     <Row>
       <Col sm="12" md={{ size: 6, offset: 3 }}>
+        {
+          isSuccess
+            ?
+              <Alert color="primary">
+                  {message} Please proceed to login below.
+              </Alert>
+            : ''
+        }
+        {
+          message
+              ?
+              <Alert color="primary">
+                {message}
+              </Alert>
+              : ''
+        }
         <Jumbotron className="login">
           <h2>Login to Existing Account</h2>
           <Form className="loginForm" onSubmit={this.onHandleLogin}>
@@ -94,7 +121,7 @@ class LoginPage extends Component {
                     placeholder="********"
                 />
               </FormGroup>
-              <Button color="primary">Login</Button>
+              <Button color="primary" id='loginButton' disabled={this.state.loading}>Login</Button>
             </Col>
 
           </Form>
