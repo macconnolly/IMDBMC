@@ -24,7 +24,8 @@ class RegisterPage extends Component {
     let message, isSuccess;
 
     if (this.props.response.register.hasOwnProperty('response')) {
-     this.props.response.register.response.success !== undefined ? isSuccess = this.props.response.register.response.success : isSuccess = false;
+
+      isSuccess = this.props.response.register.response.success;
       message = this.props.response.register.response.message;
     }
     
@@ -34,15 +35,7 @@ class RegisterPage extends Component {
         <br/>
         {!isSuccess ? <div>{message}</div> : <Redirect to='login' />}
 
-        {
-          isSuccess
-              ?
-                <Alert color="primary">
-                  {message}
-                </Alert>
-              :
-                <Redirect to='login' />
-        }
+
 
         <Row>
         <Col sm="12" md={{ size: 6, offset: 3 }}>
