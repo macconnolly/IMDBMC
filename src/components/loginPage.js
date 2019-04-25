@@ -90,7 +90,7 @@ class LoginPage extends Component {
             : ''
         }
         {
-          message
+          message && !isSuccess
               ?
               <Alert color="primary">
                 {message}
