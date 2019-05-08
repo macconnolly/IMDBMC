@@ -13,7 +13,7 @@ import {
     DropdownButton,
     Dropdown
 } from 'react-bootstrap';
-import {fetchAllMovies, updateSelectedMovie, createReview} from '../actions/movieActions';
+import {fetchAllProperties, updateSelectedMovie, createReview} from '../actions/movieActions';
 import {connect} from "react-redux";
 import { replace, push } from 'connected-react-router'
 import Card from "react-bootstrap/Card";
@@ -22,12 +22,11 @@ import Cookies from 'js-cookie';
 
 
 
-class MovieList extends Component {
+class PropertyList extends Component {
     constructor(props) {
 
         super(props);
-        if (this.props.onTitleChange)
-            this.props.onTitleChange(null);
+
         this.handleShow = this.handleShow.bind(this);
         this.handleClose = this.handleClose.bind(this);
 
@@ -59,8 +58,6 @@ class MovieList extends Component {
     handleClose() {
 
         let token = Cookies.get('token');
-
-
         var data = {
             reviewBody: this.state.reviewBody,
             reviewScore: this.state.reviewRating,
@@ -72,7 +69,7 @@ class MovieList extends Component {
             reviewRating: 'Select rating',
             reviewBody: ''});
 
-        this.props.dispatch(fetchAllMovies(Cookies.get('token')));
+        this.props.dispatch(fetchAllProperties(Cookies.get('token')));
 
     }
 
@@ -89,7 +86,7 @@ class MovieList extends Component {
         if (this.props.hash !== "" && currentMovieID === ""){
             this.props.dispatch(updateSelectedMovie(hash));
         }
-        this.props.dispatch(fetchAllMovies(Cookies.get('token')));
+        this.props.dispatch(fetchAllProperties(Cookies.get('token')));
 
 
 
@@ -99,13 +96,13 @@ class MovieList extends Component {
         // console.log('Component WILL MOUNT!');
         // console.log('hash: ' + this.props.hash)
         // console.log('selected option: ' + this.props.selectedOption);
-        // //this.props.dispatch(fetchAllMovies(checkCookie()));
+        // //this.props.dispatch(fetchAllProperties(checkCookie()));
         // console.log('selected option: ' + this.props.selectedOption);
 
 
         // if(this.props.selectedOption === ""){
         //
-        //     this.props.dispatch(fetchAllMovies(checkCookie()));
+        //     this.props.dispatch(fetchAllProperties(checkCookie()));
         //     this.props.dispatch(updateSelectedMovie(this.props.hash.substr(2)));
         // }
         // else {
@@ -117,7 +114,7 @@ class MovieList extends Component {
         // console.log('selected option: ' + this.props.selectedOption);
         //
 
-        //this.props.dispatch(fetchAllMovies(checkCookie()));
+        //this.props.dispatch(fetchAllProperties(checkCookie()));
 
 
 
@@ -143,20 +140,20 @@ class MovieList extends Component {
     componentWillUpdate(nextProps, nextState) {
 
         let hash = this.props.hash.substr(2);
-        let currentMovieID = this.props.selectedOption;
+        let currentPropertyID = this.props.selectedOption;
 
-        if(hash === '' && currentMovieID == ''){
-            let m = nextProps.movieList[0]._id
+        if(hash === '' && currentPropertyID == ''){
+            let m = nextProps.propertyList[0]._id
             console.log(m)
             this.handleOnChangeSelectedOption(m);
         }
 
 
-        //const firstMovie = JSON.parse(nextProps.movieList[0]._id)
+        //const firstMovie = JSON.parse(nextProps.propertyList[0]._id)
         //this.handleOnChangeSelectedOption(firstMovie)
         // console.log('comp will update')
         // if(this.props.selectedOption === '') {
-        //     let firstMovie = nextProps.movieList[0]._id
+        //     let firstMovie = nextProps.propertyList[0]._id
         //     this.handleOnChangeSelectedOption(firstMovie);
         // }
 
@@ -174,7 +171,7 @@ class MovieList extends Component {
 
     // handleOnLoadMovies = (token) => {
     //     this.handleOnChangeSelectedOption(this.props.selectedOption || this.props.hash.substr(2));
-    //     this.props.dispatch(fetchAllMovies(token));
+    //     this.props.dispatch(fetchAllProperties(token));
     //
     //
     //
@@ -184,17 +181,17 @@ class MovieList extends Component {
 
 
         // if(this.props.selectedOption === ""){
-        //     this.props.dispatch(updateSelectedMovie(this.props.movieList[0]._id));
+        //     this.props.dispatch(updateSelectedMovie(this.props.propertyList[0]._id));
         // }
 
-        // this.props.dispatch(fetchAllMovies(checkCookie()));
+        // this.props.dispatch(fetchAllProperties(checkCookie()));
 
         //this.handleOnChangeSelectedOption(this.props.hash.substr(2))
 
 
 
 
-        //this.props.dispatch(fetchAllMovies(checkCookie()));
+        //this.props.dispatch(fetchAllProperties(checkCookie()));
         //this.props.dispatch(updateSelectedMovie(this.props.selectedOption));
 
 
@@ -208,11 +205,11 @@ class MovieList extends Component {
     handleOnChangeSelectedOption = (e) => {
         console.log('value of e is ' + e);
         this.props.dispatch(updateSelectedMovie(e));
-        this.props.dispatch(replace('/movies/#/' + e));
+        this.props.dispatch(replace('/properties/#/' + e));
 
     };
     // handleOnLoadMovies = (token) => {
-    //     this.props.dispatch(fetchAllMovies(token)).then((response) => {
+    //     this.props.dispatch(fetchAllProperties(token)).then((response) => {
     //         console.log('MOVIES RETURNED - UPDATE STATE' + response);
     //         this.props.dispatch(updateSelectedMovie(this.props.hash.substr(2)))
     //
@@ -244,7 +241,7 @@ class MovieList extends Component {
                                 <Card.Body>
                             <Nav variant="pills" className="flex-column" activeKey={this.props.selectedOption}  >
                                     {
-                                        this.props.movieList.map((movie, index) => (
+                                        this.props.propertyList.map((movie, index) => (
                                         <Nav.Item key={movie._id} >
                                             <Nav.Link eventKey={movie._id}>
                                                 {'#' + (index+1) + '. ' + movie.title}
@@ -258,7 +255,7 @@ class MovieList extends Component {
                         <Col md={9} >
                             <Card body>
                             <Tab.Content>
-                                {this.props.movieList.map((movie, index) => (
+                                {this.props.propertyList.map((movie, index) => (
                                     <Tab.Pane key={movie._id} eventKey={movie._id} >
                                         <Row>
                                             <Col md={4}>
@@ -380,23 +377,23 @@ const mapStateToProps = state => ({
     pathname: state.router.location.pathname,
     search: state.router.location.search,
     hash: state.router.location.hash,
-    movieList: state.movie.titles,
-    selectedOption: state.movie.selectedOption,
-    inFlight: state.movie.inFlight,
+    propertyList: state.property.titles,
+    selectedOption: state.property.selectedOption,
+    inFlight: state.property.inFlight,
 });
 
-export default connect(mapStateToProps)(MovieList)
+export default connect(mapStateToProps)(PropertyList)
 
 // <ListGroup variant="flush">
-//     {this.props.movieList.map((movie, index) => (
+//     {this.props.propertyList.map((property, index) => (
 //             <ListGroup.Item
 //                 action
-//                 key={movie._id}
-//                 value={movie._id}
-//                 active={this.props.selectedOption === movie._id}
+//                 key={property._id}
+//                 value={property._id}
+//                 active={this.props.selectedOption === property._id}
 //                 onClick={(e) => this.handleOnChangeSelectedOption(e)}
 //             >
-//                 {movie.title}
+//                 {property.title}
 //             </ListGroup.Item>
 //
 //         ))}

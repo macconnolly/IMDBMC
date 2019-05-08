@@ -22,7 +22,7 @@ export const getAllMoviesService = (token) => {
 
 
 export const getMovieDetailsService = (response, ...params) => {
-    //console.log('movie service call');
+    //console.log('property service call');
     const MOVIE_API_ENDPOINT = 'https://csc3916-hw4.herokuapp.com/movies';
     const parameters = {
         method: 'GET',
@@ -45,7 +45,7 @@ export const getMovieDetailsService = (response, ...params) => {
 };
 
 export const createMovieService = (action) => {
-    console.log('movie service action data:');
+    console.log('property service action data:');
     console.log(JSON.stringify(action.data));
     console.log(JSON.stringify(action.token));
 

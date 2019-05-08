@@ -3,9 +3,10 @@ import { connectRouter } from 'connected-react-router'
 
 import register from './registerReducer';
 import login from './loginReducer';
-import movie from './movieReducer';
+import property from './propertyReducer';
 
 export default (history) => combineReducers({
   router: connectRouter(history),
-  register, login, movie
+  register, login, property
 });
+

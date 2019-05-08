@@ -4,7 +4,7 @@ import { ListGroup } from 'react-bootstrap';
 
 class MovieList extends Component {
 
-    state = {selectedOption: null, movieList: []};
+    state = {selectedOption: null, propertyList: []};
 
     constructor(props) {
         console.log('CONSTRUCTOR!')
@@ -42,9 +42,9 @@ class MovieList extends Component {
 
             .then((response) => {
                 console.log('MOVIES RETURNED - UPDATE STATE');
-                //const movieList = response.data.map(movie => movie.title);
+                //const propertyList = response.data.map(property => property.title);
                 this.setState({
-                    movieList: response.data
+                    propertyList: response.data
                 });
             })
             .catch((error) => {
@@ -66,7 +66,7 @@ class MovieList extends Component {
 
                 <div>
                     <ListGroup variant="flush">
-                        {this.state.movieList.map((movie, index) => (
+                        {this.state.propertyList.map((movie, index) => (
                             <ListGroup.Item
                                 action
                                 key={movie._id}

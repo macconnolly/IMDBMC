@@ -1,8 +1,8 @@
 
 import {
-    FETCH_MOVIE_SUCCESS,
-    FETCH_MOVIE_ERROR,
-    FETCH_MOVIES,
+    FETCH_PROPERTY_SUCCESS,
+    FETCH_PROPERTY_ERROR,
+    FETCH_PROPERTIES,
     UPDATE_SELECTED_MOVIE,
     IN_FLIGHT_START,
     IN_FLIGHT_STOP,
@@ -35,22 +35,22 @@ export const inFlightStop = () => {
     }
 };
 
-export const fetchAllMovies = (token) => {
+export const fetchAllProperties = () => {
     return {
-        type: FETCH_MOVIES, token
+        type: FETCH_PROPERTIES
     }
 };
 
 export function getAllMoviesSuccess(data) {
     return {
-        type: FETCH_MOVIE_SUCCESS,
+        type: FETCH_PROPERTY_SUCCESS,
         data
     };
 }
 
 export function getAllMoviesError(data){
     return {
-        type: FETCH_MOVIE_ERROR,
+        type: FETCH_PROPERTY_ERROR,
         data
     }
 }
@@ -89,14 +89,12 @@ export function createReview(data, token) {
     return{
         type: CREATE_REVIEW, data, token
     }
-
 }
 
 export function createReviewSuccess() {
     return{
         type: CREATE_REVIEW_SUCCESS
     }
-
 }
 
 
