@@ -7,6 +7,7 @@ import {Route, Router, Switch} from "react-router";
 import MovieOverview from "../../container/movieOverview";
 import LoginPage from "../loginPage";
 import RegisterPage from "../registerPage";
+import CleanerDetail from '../cleanerDetail';
 import CreateMovieContainer from "../../container/createMovieContainer";
 import {ConnectedRouter} from "connected-react-router";
 class Content extends React.Component {
@@ -24,6 +25,7 @@ class Content extends React.Component {
                             <Route path="/properties" component={MovieOverview} />
                             <Route path='/property/create' exact component={CreateMovieContainer}/>
                             <Route path='/test/:id' exact component={RegisterPage} />
+                            <Route path='/cleaner' exact component={CleanerDetail} />
                         </Switch>
                     </Router>
                 </ConnectedRouter>

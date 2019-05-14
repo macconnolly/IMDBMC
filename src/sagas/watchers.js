@@ -19,7 +19,7 @@ export function* watchUserAuthentication() {
 
 export function* watchMovies() {
 
-  yield takeEvery(FETCH_PROPERTIES, getAllMoviesSaga);
+  yield takeLatest(FETCH_PROPERTIES, getAllMoviesSaga);
   yield takeLatest(CREATE_MOVIE, createNewMovieSaga);
   yield takeEvery(CREATE_REVIEW, createNewReviewSaga);
   //yield takeLatest(UPDATE_SELECTED_MOVIE, updateSelectedMovie);

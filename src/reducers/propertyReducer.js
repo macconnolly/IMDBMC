@@ -15,7 +15,7 @@ import {
     CREATE_REVIEW, CREATE_REVIEW_SUCCESS, CREATE_PROPERTY_SUCCESS
 } from '../actions';
 
-let initialState = {titles: [], loggedIn: false, createRedirect: false, inFlight: false, selectedOption: '' };
+let initialState = {titles: [], loggedIn: false, createRedirect: false, inFlight: false, selectedOption: '', propertyList: []};
 export default function(state = initialState, action) {
    // console.log('back to reducer' + JSON.stringify(action));
     switch(action.type) {
@@ -26,8 +26,9 @@ export default function(state = initialState, action) {
             console.log('inflight stop reducer');
             return { ...state, inFlight: false};
         case FETCH_PROPERTY_SUCCESS:
-            //console.log('response data: ' + action.response);
-            return { ...state, titles: action.response, loggedIn: true };
+            console.log('response data: ' + action.response);
+            console.log(action.response.properties);
+            return { ...state, titles: action.response.properties, };
         case FETCH_PROPERTY_ERROR:
             return { ...state, error:action.data };
         case UPDATE_SELECTED_MOVIE:

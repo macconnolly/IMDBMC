@@ -34,7 +34,6 @@ export const inFlightStop = () => {
         type: IN_FLIGHT_STOP
     }
 };
-
 export const fetchAllProperties = () => {
     return {
         type: FETCH_PROPERTIES

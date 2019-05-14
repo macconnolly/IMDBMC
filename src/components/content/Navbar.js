@@ -2,6 +2,11 @@ import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAlignLeft } from '@fortawesome/free-solid-svg-icons';
 import { Navbar, Button, NavbarToggler, Collapse, Nav, NavItem, NavLink } from 'reactstrap';
+import { replace, push } from 'connected-react-router'
+
+
+import {connect} from "react-redux";
+import {fetchAllProperties} from "../../actions/movieActions";
 
 
 class NavBar extends React.Component {
@@ -10,6 +15,7 @@ class NavBar extends React.Component {
         super(props);
 
         this.toggle = this.toggle.bind(this);
+        this.handleClick = this.handleClick.bind(this);
         this.state = {
             isOpen: false
         };
@@ -19,6 +25,15 @@ class NavBar extends React.Component {
         this.setState({
             isOpen: !this.state.isOpen  // navbar collapse
         });
+    }
+    handleClick(path){
+        console.log('linkHandler')
+        this.props.dispatch(replace(path))
+    }
+
+    componentWillMount() {
+        console.log('nav component will mount!');
+        this.props.dispatch(fetchAllProperties());
     }
 
     render(){
@@ -30,8 +45,9 @@ class NavBar extends React.Component {
                 <NavbarToggler onClick={this.toggle} />
                 <Collapse isOpen={this.state.isOpen} navbar>
                     <Nav className="ml-auto" navbar>
-                        <NavItem>
-                            <NavLink href="#">page</NavLink>
+                        <NavItem >
+
+                            <Button onClick={() => this.handleClick('/property/create')}>Add Property</Button>
                         </NavItem>
                         <NavItem>
                             <NavLink href="#">page</NavLink>
@@ -49,4 +65,13 @@ class NavBar extends React.Component {
     }
 }
 
-export default NavBar;
+const mapDispatchToProps = (dispatch) => ({
+    dispatch
+});
+
+const mapStateToProps = (state) => {
+    return {
+
+    };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(NavBar);

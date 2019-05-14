@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Col, Container, Row, Jumbotron } from 'react-bootstrap';
 import MovieForm from '../components/propertyForm';
-import './MovieList.css';
+import './PropertyList.css';
 import {connect} from 'react-redux';
 
 

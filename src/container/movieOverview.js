@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Col, Container, Row, Jumbotron } from 'react-bootstrap';
 import MovieList from '../components/propertyList';
-import './MovieList.css';
+import './PropertyList.css';
 
 
 class MovieOverview extends Component {

@@ -10,12 +10,9 @@ import {loginUserService} from "../services/authenticationService";
 
 export function* getAllMoviesSaga(action) {
     try {
+        console.log('get all movies sags');
 
-
-        const response = yield call(getAllMoviesService, action.token);
-
-
-
+        const response = yield call(getAllMoviesService);
         yield put({ type: FETCH_PROPERTY_SUCCESS, response })
 
             //put(push('/movies'))

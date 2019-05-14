@@ -10,12 +10,7 @@ import './index.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 
-import LoginPage from './components/loginPage';
-import RegisterPage from './components/registerPage';
-import CreateMovieContainer from './container/createMovieContainer';
-import MovieHeader from "./components/header";
-import MovieOverview from './container/movieOverview';
-import MovieForm from './components/propertyForm';
+
 import Content from "./components/content/Content";
 import SideBar from './components/sidebar/SideBar';
 
@@ -39,12 +34,10 @@ render(){
 
 
 
-        <div className="App wrapper">
+        <div className="App wrapper body">
             <Provider store={store}>
             <SideBar toggle={this.toggle} isOpen={this.state.isOpen}/>
             <Content toggle={this.toggle} isOpen={this.state.isOpen} />
-
-
             </Provider>
 
         </div>

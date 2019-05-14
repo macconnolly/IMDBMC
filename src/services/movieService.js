@@ -1,21 +1,20 @@
 import { push, replace } from 'connected-react-router'
-export const getAllMoviesService = (token) => {
-    const MOVIE_API_ENDPOINT = 'https://csc3916-hw4.herokuapp.com/movies?reviews=true';
+export const getAllMoviesService = () => {
+    const MOVIE_API_ENDPOINT = 'http://localhost:8080/properties?cleanings=true';
     const parameters = {
         method: 'GET',
         headers: {
-            "Authorization": token,
             "Content-Type": "application/json"
         }
     };
 
     return fetch(MOVIE_API_ENDPOINT, parameters)
         .then(response => {
-            //console.log('service json first response: ' + JSON.stringify(response));
+            console.log('service json first response: ' + JSON.stringify(response));
             return response.json();
         })
         .then(json => {
-            //console.log('Service json response' + JSON.stringify(json));
+            console.log('Service json response' + JSON.stringify(json));
             return json;
         });
 };
@@ -27,7 +26,6 @@ export const getMovieDetailsService = (response, ...params) => {
     const parameters = {
         method: 'GET',
         headers: {
-            'Authorization': params.token,
             'Content-Type': 'application/json'
         }
     };
